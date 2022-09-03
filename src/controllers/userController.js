@@ -20,13 +20,12 @@ const save = async (req, res) => {
       user.surname &&
       user.email &&
       user.password &&
-      user.nick &&
       user.role
     ) {
       const data = new User(user);
 
       const userExists = await User.findOne({
-        $or: [{ email: user.email }, { nick: user.nick }],
+        $or: [{ email: user.email }],
       });
 
       if (userExists) {
