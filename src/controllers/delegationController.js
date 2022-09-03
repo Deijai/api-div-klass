@@ -29,7 +29,7 @@ const save = async (req, res) => {
           }
 
           if (delegationStored) {
-            return res.status(200).json({ delegation: delegationStored });
+            return res.status(200).json({ data: delegationStored });
           } else {
             return res.status(404).json({ error: "Delegation not created" });
           }

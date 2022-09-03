@@ -29,7 +29,7 @@ const save = async (req, res) => {
           }
 
           if (eventStored) {
-            return res.status(200).json({ event: eventStored });
+            return res.status(200).json({ data: eventStored });
           } else {
             return res.status(404).json({ error: "Event not created" });
           }

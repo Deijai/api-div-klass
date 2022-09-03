@@ -29,7 +29,7 @@ const save = async (req, res) => {
           }
 
           if (roleStored) {
-            return res.status(200).json({ role: roleStored });
+            return res.status(200).json({ data: roleStored });
           } else {
             return res.status(404).json({ error: "Role not created" });
           }

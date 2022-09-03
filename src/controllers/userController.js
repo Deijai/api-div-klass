@@ -42,7 +42,7 @@ const save = async (req, res) => {
           }
 
           if (userStored) {
-            return res.status(200).json({ user: userStored });
+            return res.status(200).json({ data: userStored });
           } else {
             return res.status(404).json({ error: "User not created" });
           }
@@ -124,7 +124,7 @@ const getUser = async (req, res) => {
       return res.status(404).json({ error: "User does not exist" });
     }
 
-    return res.status(200).json({ user: userExists });
+    return res.status(200).json({ data: userExists });
   } catch (error) {
     return res.status(500).json({ error: error });
   }
@@ -157,7 +157,7 @@ const edit = async (req, res) => {
       if (!userUpdated) {
         return res.status(500).json({ error: "Could not update user" });
       }
-      return res.status(200).json({ user: userUpdated });
+      return res.status(200).json({ data: userUpdated });
     });
   } catch (error) {
     return res.status(500).json({ error: error });
@@ -201,7 +201,7 @@ const uploadImage = async (req, res) => {
             if (!userUpdated) {
               return res.status(500).json({ error: "Could not update user" });
             }
-            return res.status(200).json({ user: userUpdated });
+            return res.status(200).json({ data: userUpdated });
           }
         );
       } else {

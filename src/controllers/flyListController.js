@@ -30,7 +30,7 @@ const save = async (req, res) => {
           }
 
           if (flyListStored) {
-            return res.status(200).json({ flyList: flyListStored });
+            return res.status(200).json({ data: flyListStored });
           } else {
             return res.status(404).json({ error: "Role not created" });
           }
