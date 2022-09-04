@@ -6,10 +6,6 @@ const fs = require("fs");
 const path = require("path");
 const uploads = require("../helpers/removeUploads");
 
-const test = (req, res) => {
-  res.json({ ok: true });
-};
-
 //save user
 const save = async (req, res) => {
   const { user } = req.body;
@@ -56,8 +52,8 @@ const save = async (req, res) => {
 
 //signin user
 const signin = async (req, res) => {
-  const { user } = req.body;
-  const userExists = await User.findOne({ email: user.email });
+  const { email, password } = req.body;
+  const userExists = await User.findOne({ email: email });
 
   if (!userExists) {
     return res
@@ -65,7 +61,7 @@ const signin = async (req, res) => {
       .json({ error: "Email and/or Password are incorrect" });
   }
 
-  bcrypt.compare(user.password, userExists.password, (err, user) => {
+  bcrypt.compare(password, userExists.password, (err, user) => {
     if (err) {
       return res.status(404).json({ error: err });
     }
@@ -239,7 +235,6 @@ const getImage = (req, res) => {
 };
 
 module.exports = {
-  test,
   save,
   signin,
   getUser,

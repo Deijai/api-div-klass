@@ -42,7 +42,32 @@ const save = async (req, res) => {
   }
 };
 
+//list all flyList
+const getFlyList = async (req, res) => {
+  try {
+    const { page = 1, limit = 10 } = req.query;
+    const flyLists = await FlyList.find()
+      .sort("_id")
+      .limit(limit * 1)
+      .skip((page - 1) * limit)
+      .exec();
+
+    const total = await FlyList.count();
+    console.log('flyLists', flyLists);
+    if (flyLists.length <= 0) {
+      return res.status(404).json({ error: "No flyList found" });
+    }
+    return res
+      .status(200)
+      .json({ data: flyLists, totalPages: Math.ceil(total / limit), currentPage: page });
+  } catch (error) {
+    console.log('errrrrrr');
+    return res.status(500).json({ error: error });
+  }
+};
+
 module.exports = {
     save,
+    getFlyList,
   };
   

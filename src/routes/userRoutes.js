@@ -8,7 +8,6 @@ const upload = multipart({ uploadDir: path.resolve(__dirname, '../uploads/users'
 
 const api = express.Router();
 
-api.get('/test',  userController.test);
 api.post('/save', authenticate.ensureAuth, userController.save);
 api.get('/find', authenticate.ensureAuth, userController.getUsers);
 api.get('/find/:id', authenticate.ensureAuth, userController.getUser);
