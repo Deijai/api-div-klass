@@ -12,14 +12,14 @@ const save = async (req, res) => {
     }
 
     const flyListExists = await FlyList.find({
-        $or: [{email: flyList.email}, {cpf: flyList.cpf}, {rg: flyList.rg}],
+        $or: [{email: flyList.person.email}, {cpf: flyList.person.cpf}, {rg: flyList.person.rg}],
         $and: [{event: flyList.event}]
     });
 
       if (flyListExists.length > 0) {
         return res
           .status(401)
-          .json({ error: "The role is already registered" });
+          .json({ error: "The flyList is already registered" });
       }
 
       const data = new FlyList(flyList);
@@ -32,7 +32,7 @@ const save = async (req, res) => {
           if (flyListStored) {
             return res.status(200).json({ data: flyListStored });
           } else {
-            return res.status(404).json({ error: "Role not created" });
+            return res.status(404).json({ error: "flyList not created" });
           }
       });
 
@@ -53,7 +53,6 @@ const getFlyList = async (req, res) => {
       .exec();
 
     const total = await FlyList.count();
-    console.log('flyLists', flyLists);
     if (flyLists.length <= 0) {
       return res.status(404).json({ error: "No flyList found" });
     }
@@ -61,7 +60,6 @@ const getFlyList = async (req, res) => {
       .status(200)
       .json({ data: flyLists, totalPages: Math.ceil(total / limit), currentPage: page });
   } catch (error) {
-    console.log('errrrrrr');
     return res.status(500).json({ error: error });
   }
 };

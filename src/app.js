@@ -10,6 +10,7 @@ const roleRoutes = require('./routes/roleRoutes');
 const delegationRoutes = require('./routes/delegationRoutes');
 const eventRoutes = require('./routes/eventRoutes');
 const flyListRoutes = require('./routes/flyListRoutes');
+const personRoutes = require('./routes/personRoutes');
 
 //middlewares
 app.use(express.urlencoded({extended:false}));
@@ -27,6 +28,7 @@ app.use('/api/role', roleRoutes);
 app.use('/api/delegation', delegationRoutes);
 app.use('/api/event', eventRoutes);
 app.use('/api/flyList', flyListRoutes);
+app.use('/api/person', personRoutes);
 
 //exports
 module.exports = app;

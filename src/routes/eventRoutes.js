@@ -6,5 +6,6 @@ const authenticate = require('../middlewares/authenticated');
 const api = express.Router();
 
 api.post('/save', authenticate.ensureAuth, eventController.save);
+api.get('/find', authenticate.ensureAuth, eventController.getEvents);
 
 module.exports = api;

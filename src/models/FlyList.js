@@ -2,36 +2,19 @@
 const mongoose = require("mongoose");
 
 const FlyListSchema = mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  cpf: {
-    type: String,
-    required: true,
-  },
-  rg: {
-    type: String,
-    required: true,
-  },
-  role: {
+  person: {
     type: mongoose.Schema.ObjectId,
-    ref: "Role",
+    ref: "Person",
+    required: true,
   },
   delegation: {
     type: mongoose.Schema.ObjectId,
     ref: "Delegation",
+    required: true,
   },
   event: {
     type: mongoose.Schema.ObjectId,
     ref: "Event",
-  },
-  email: {
-    type: String,
-    required: true,
-  },
-  password: {
-    type: String,
     required: true,
   },
   stretch: {

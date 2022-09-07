@@ -76,7 +76,7 @@ const signin = async (req, res) => {
     const tokenUser = jwt.createToken(userExists);
 
     return res.status(200).json({
-      user: userExists,
+      data: userExists,
       token: tokenUser,
     });
   });
@@ -86,7 +86,7 @@ const signin = async (req, res) => {
 const getUsers = async (req, res) => {
   try {
     const { page = 1, limit = 10 } = req.query;
-    const users = await User.find()
+    const users = await User.find().populate('role')
       .sort("_id")
       .limit(limit * 1)
       .skip((page - 1) * limit)
@@ -99,7 +99,7 @@ const getUsers = async (req, res) => {
     }
     return res
       .status(200)
-      .json({ users, totalPages: Math.ceil(total / limit), currentPage: page });
+      .json({ data: users, totalPages: Math.ceil(total / limit), currentPage: page });
   } catch (error) {
     return res.status(500).json({ error: error });
   }

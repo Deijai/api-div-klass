@@ -41,7 +41,33 @@ const save = async (req, res) => {
   }
 };
 
+
+//list all delegations
+const getDelegations = async (req, res) => {
+  try {
+    const { page = 1, limit = 10 } = req.query;
+    const delegations = await Delegation.find()
+      .sort("_id")
+      .limit(limit * 1)
+      .skip((page - 1) * limit)
+      .exec();
+
+    const total = await Delegation.count();
+
+    if (delegations.length <= 0) {
+      return res.status(404).json({ error: "No delegations found" });
+    }
+    return res
+      .status(200)
+      .json({ data: delegations, totalPages: Math.ceil(total / limit), currentPage: page });
+  } catch (error) {
+    return res.status(500).json({ error: error });
+  }
+};
+
+
 module.exports = {
     save,
+    getDelegations
   };
   
